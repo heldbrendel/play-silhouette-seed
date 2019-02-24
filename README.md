@@ -1,7 +1,7 @@
-Silhouette Seed Template
+Silhouette Slick Seed Template
 =====================================
 
-The Silhouette Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented in a Play Framework application. It's a starting point which can be extended to fit your needs.
+The Silhouette Slick Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented together with [Slick](http://slick.lightbend.com/) as persistence layer in a Play Framework application. It's a starting point which can be extended to fit your needs.
 
 ## Example
 
@@ -15,7 +15,6 @@ Or you can find a running example of this template under the following URL: http
 
 * Sign Up
 * Sign In (Credentials)
-* Social Auth (Facebook, Google+, VK, Twitter, Xing, Yahoo)
 * Dependency Injection with Guice
 * Publishing Events
 * Avatar service

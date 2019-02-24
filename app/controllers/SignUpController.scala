@@ -1,7 +1,6 @@
 package controllers
 
 import java.util.UUID
-import javax.inject.Inject
 
 import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
@@ -9,9 +8,9 @@ import com.mohiva.play.silhouette.api.services.AvatarService
 import com.mohiva.play.silhouette.api.util.PasswordHasherRegistry
 import com.mohiva.play.silhouette.impl.providers._
 import forms.SignUpForm
+import javax.inject.Inject
 import models.User
 import models.services.{ AuthTokenService, UserService }
-import org.webjars.play.WebJarsUtil
 import play.api.i18n.{ I18nSupport, Messages }
 import play.api.libs.mailer.{ Email, MailerClient }
 import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents, Request }
@@ -30,7 +29,6 @@ import scala.concurrent.{ ExecutionContext, Future }
  * @param avatarService          The avatar service implementation.
  * @param passwordHasherRegistry The password hasher registry.
  * @param mailerClient           The mailer client.
- * @param webJarsUtil            The webjar util.
  * @param assets                 The Play assets finder.
  * @param ex                     The execution context.
  */
@@ -45,7 +43,6 @@ class SignUpController @Inject() (
   mailerClient: MailerClient
 )(
   implicit
-  webJarsUtil: WebJarsUtil,
   assets: AssetsFinder,
   ex: ExecutionContext
 ) extends AbstractController(components) with I18nSupport {

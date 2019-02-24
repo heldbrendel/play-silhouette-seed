@@ -1,88 +1,104 @@
+@import controllers.AssetsFinder
 @import play.api.i18n.Messages
 @import play.api.mvc.RequestHeader
 @import play.twirl.api.Html
-@import org.webjars.play.WebJarsUtil
-@import controllers.AssetsFinder
 
-@(title: String, user: Option[models.User] = None)(content: Html)(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder, webJarsUtil: WebJarsUtil)
+@(title: String, user: Option[models.User] = None)(content: Html)(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="@assets.path("images/favicon.png")">
         <title>@title</title>
-        <link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
-        <link href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
-        @webJarsUtil.locate("bootstrap.min.css").css()
-        @webJarsUtil.locate("bootstrap-theme.min.css").css()
-        <link rel="stylesheet" href="@assets.path("styles/main.css")">
-            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-            <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
+
+        <link href="@assets.path("styles/bulma.min.css")" rel="stylesheet">
+        <link href="@assets.path("styles/main.css")" rel="stylesheet">
     </head>
     <body>
-        <header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">@messages("toggle.navigation")</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Silhouette Seed Template</a>
+
+        <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="@controllers.routes.ApplicationController.index">
+                    Silhouette Slick Seed Template
+                </a>
+
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="@controllers.routes.ApplicationController.index">
+                    @messages("home")
+                    </a>
+                    <a class="navbar-item" href="https://github.com/heldbrendel/play-silhouette-slick-seed">
+                        Github
+                    </a>
                 </div>
-                <nav class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="@controllers.routes.ApplicationController.index">@messages("home")</a></li>
-                        <li><a href="https://github.com/mohiva/play-silhouette-seed">GitHub</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        @user.map { u =>
-                            <li><a href="@controllers.routes.ApplicationController.index">@u.name</a></li>
-                            @if(u.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
-                                <li><a href="@controllers.routes.ChangePasswordController.view">@messages("change.password")</a></li>
+
+                <div class="navbar-end">
+                @if(user.isDefined) {
+                    <a class="navbar-item" href="@controllers.routes.ApplicationController.index">@user.get.name</a>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            @if(user.get.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
+                                <a class="button is-primary" href="@controllers.routes.ChangePasswordController.view">
+                                @messages("change.password")
+                                </a>
                             }
-                            <li><a href="@controllers.routes.ApplicationController.signOut">@messages("sign.out")</a></li>
-                        }.getOrElse {
-                            <li><a href="@controllers.routes.SignInController.view">@messages("sign.in")</a></li>
-                            <li><a href="@controllers.routes.SignUpController.view">@messages("sign.up")</a></li>
-                        }
-                    </ul>
-                </nav>
+                            <a class="button is-primary" href="@controllers.routes.ApplicationController.signOut">
+                            @messages("sign.out")
+                            </a>
+                        </div>
+                    </div>
+
+                } else {
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="@controllers.routes.SignUpController.view">
+                            @messages("sign.up")
+                            </a>
+                            <a class="button is-light" href="@controllers.routes.SignInController.view">
+                            @messages("sign.in")
+                            </a>
+                        </div>
+                    </div>
+                }
+                </div>
             </div>
-        </header>
-        <main class="container">
-            <div class="starter-template row">
-                @request.flash.get("error").map { msg =>
-                    <div class="col-md-6 col-md-offset-3 alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>@messages("error")</strong> @msg
-                    </div>
-                }
-                @request.flash.get("info").map { msg =>
-                    <div class="col-md-6 col-md-offset-3 alert alert-info">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>@messages("info")</strong> @msg
-                    </div>
-                }
-                @request.flash.get("success").map { msg =>
-                    <div class="col-md-6 col-md-offset-3 alert alert-success">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <strong>@messages("success")</strong> @msg
-                    </div>
-                }
-                @content
+        </nav>
+
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    @request.flash.get("error").map { msg =>
+                        <div class="notification is-danger">
+                            <button class="delete"></button>
+                            @messages("error") @msg
+                        </div>
+                    }
+
+                    @request.flash.get("info").map { msg =>
+                        <div class="notification is-info">
+                            <button class="delete"></button>
+                            @messages("info") @msg
+                        </div>
+                    }
+
+                    @request.flash.get("success").map { msg =>
+                        <div class="notification is-success">
+                            <button class="delete"></button>
+                            @messages("success") @msg
+                        </div>
+                    }
+                    @content
+                </div>
             </div>
-        </main>
-        @webJarsUtil.locate("jquery.min.js").script()
-        @webJarsUtil.locate("bootstrap.min.js").script()
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
-        <script src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+        </div>
     </body>
 </html>

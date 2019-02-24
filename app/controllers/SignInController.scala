@@ -11,7 +11,6 @@ import com.mohiva.play.silhouette.impl.providers._
 import forms.SignInForm
 import models.services.UserService
 import net.ceedubs.ficus.Ficus._
-import org.webjars.play.WebJarsUtil
 import play.api.Configuration
 import play.api.i18n.{ I18nSupport, Messages }
 import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents, Request }
@@ -27,10 +26,8 @@ import scala.concurrent.{ ExecutionContext, Future }
  * @param silhouette             The Silhouette stack.
  * @param userService            The user service implementation.
  * @param credentialsProvider    The credentials provider.
- * @param socialProviderRegistry The social provider registry.
  * @param configuration          The Play configuration.
  * @param clock                  The clock instance.
- * @param webJarsUtil            The webjar util.
  * @param assets                 The Play assets finder.
  */
 class SignInController @Inject() (
@@ -38,12 +35,10 @@ class SignInController @Inject() (
   silhouette: Silhouette[DefaultEnv],
   userService: UserService,
   credentialsProvider: CredentialsProvider,
-  socialProviderRegistry: SocialProviderRegistry,
   configuration: Configuration,
   clock: Clock
 )(
   implicit
-  webJarsUtil: WebJarsUtil,
   assets: AssetsFinder,
   ex: ExecutionContext
 ) extends AbstractController(components) with I18nSupport {
@@ -54,7 +49,7 @@ class SignInController @Inject() (
    * @return The result to display.
    */
   def view = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
-    Future.successful(Ok(views.html.signIn(SignInForm.form, socialProviderRegistry)))
+    Future.successful(Ok(views.html.signIn(SignInForm.form)))
   }
 
   /**
@@ -64,7 +59,7 @@ class SignInController @Inject() (
    */
   def submit = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
     SignInForm.form.bindFromRequest.fold(
-      form => Future.successful(BadRequest(views.html.signIn(form, socialProviderRegistry))),
+      form => Future.successful(BadRequest(views.html.signIn(form))),
       data => {
         val credentials = Credentials(data.email, data.password)
         credentialsProvider.authenticate(credentials).flatMap { loginInfo =>

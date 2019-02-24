@@ -1,10 +1,8 @@
 package controllers
 
-import javax.inject.Inject
-
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
-import org.webjars.play.WebJarsUtil
+import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents }
 import utils.auth.DefaultEnv
@@ -16,7 +14,6 @@ import scala.concurrent.Future
  *
  * @param components  The Play controller components.
  * @param silhouette  The Silhouette stack.
- * @param webJarsUtil The webjar util.
  * @param assets      The Play assets finder.
  */
 class ApplicationController @Inject() (
@@ -24,7 +21,6 @@ class ApplicationController @Inject() (
   silhouette: Silhouette[DefaultEnv]
 )(
   implicit
-  webJarsUtil: WebJarsUtil,
   assets: AssetsFinder
 ) extends AbstractController(components) with I18nSupport {
 
