@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="root [file:/D:/Workspace/play-silhouette-slick-seed/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+<module external.linked.project.id="root [file:/D:/workspace/play-silhouette-slick-seed/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/../../target/scala-2.12/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.12/test-classes" />
     <exclude-output />
@@ -22,6 +22,44 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: aopalliance:aopalliance:1.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.26:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:jul-to-slf4j:1.7.26:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:jcl-over-slf4j:1.7.26:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport-native-unix-common:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport-native-epoll:4.1.34.Final:linux-x86_64:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-resolver:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-handler:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-common:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-codec-http:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-codec:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-buffer:4.1.34.Final:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-test_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-streams_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-specs2_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-server_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-netty-server_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-logback_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-json_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-guice_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-functional_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-exceptions:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-ehcache_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-cache_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:play-akka-http-server_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:filters-helpers_2.12:2.7.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.play:build-link:2.7.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.netty:netty-reactive-streams-http:2.0.3:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.netty:netty-reactive-streams:2.0.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-stream_2.12:2.5.22:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-slf4j_2.12:2.5.22:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-protobuf_2.12:2.5.22:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-parsing_2.12:10.1.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-http-core_2.12:10.1.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-actor_2.12:2.5.22:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.google.guava:guava:27.1-jre:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.google.guava:failureaccess:1.0.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.zaxxer:HikariCP:3.2.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.slick:slick_2.12:3.3.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.slick:slick-hikaricp_2.12:3.3.0:jar" level="project" />
@@ -45,8 +83,6 @@
     <orderEntry type="library" name="sbt: com.github.stephenc.jcip:jcip-annotations:1.0-1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.code.findbugs:jsr305:3.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.errorprone:error_prone_annotations:2.2.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.google.guava:failureaccess:1.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.google.guava:guava:27.0-jre:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.inject:guice:4.2.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.inject.extensions:guice-assistedinject:4.2.2:jar" level="project" />
@@ -65,41 +101,17 @@
     <orderEntry type="library" name="sbt: com.sun.mail:javax.mail:1.5.6:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe:config:1.3.3:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe:ssl-config-core_2.12:0.3.7:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-actor_2.12:2.5.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-http-core_2.12:10.1.7:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-parsing_2.12:10.1.7:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-protobuf_2.12:2.5.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-slf4j_2.12:2.5.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.akka:akka-stream_2.12:2.5.19:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.netty:netty-reactive-streams:2.0.0:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.netty:netty-reactive-streams-http:2.0.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:build-link:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:cachecontrol_2.12:1.1.3:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:filters-helpers_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ahc-ws-standalone_2.12:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ahc-ws_2.12:2.6.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-akka-http-server_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-cache_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-ehcache_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-exceptions:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-functional_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-guice_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-json-joda_2.12:2.6.10:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-json_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-logback_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-mailer-guice_2.12:6.0.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-mailer_2.12:6.0.1:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-netty-server_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-openid_2.12:2.6.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-server_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-specs2_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play-streams_2.12:2.7.0:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.play:play-test_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ws-standalone-json_2.12:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ws-standalone-xml_2.12:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ws-standalone_2.12:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:play-ws_2.12:2.6.19:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.typesafe.play:play_2.12:2.7.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:shaded-asynchttpclient:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:shaded-oauth:1.1.10:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:twirl-api_2.12:1.4.0:jar" level="project" />
@@ -110,15 +122,6 @@
     <orderEntry type="library" scope="TEST" name="sbt: commons-net:commons-net:3.6:jar" level="project" />
     <orderEntry type="library" name="sbt: de.svenkubiak:jBCrypt:0.4.1:jar" level="project" />
     <orderEntry type="library" name="sbt: io.jsonwebtoken:jjwt:0.9.1:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-buffer:4.1.31.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-codec:4.1.13.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-codec-http:4.1.13.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-common:4.1.31.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-handler:4.1.13.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-resolver:4.1.31.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport:4.1.31.Final:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport-native-epoll:4.1.31.Final:linux-x86_64:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: io.netty:netty-transport-native-unix-common:4.1.31.Final:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.activation:activation:1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.activation:javax.activation-api:1.2.0:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.cache:cache-api:1.0.0:jar" level="project" />
@@ -166,7 +169,6 @@
     <orderEntry type="library" name="sbt: org.ow2.asm:asm:5.0.4:jar" level="project" />
     <orderEntry type="library" name="sbt: org.quartz-scheduler:quartz:2.2.3:jar" level="project" />
     <orderEntry type="library" name="sbt: org.reactivestreams:reactive-streams:1.0.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-collection-compat_2.12:0.1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-java8-compat_2.12:0.9.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-parser-combinators_2.12:1.1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-xml_2.12:1.1.0:jar" level="project" />
@@ -177,9 +179,6 @@
     <orderEntry type="library" scope="TEST" name="sbt: org.seleniumhq.selenium:selenium-firefox-driver:3.141.59:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.seleniumhq.selenium:selenium-remote-driver:3.141.59:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.seleniumhq.selenium:selenium-support:3.141.59:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:jcl-over-slf4j:1.7.25:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:jul-to-slf4j:1.7.25:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.25:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.specs2:specs2-common_2.12:4.3.6:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.specs2:specs2-core_2.12:4.3.6:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.specs2:specs2-fp_2.12:4.3.6:jar" level="project" />
@@ -197,6 +196,7 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.ivy2/cache/io.netty/netty-transport-native-epoll/srcs/netty-transport-native-epoll-4.1.31.Final-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/io.netty/netty-transport-native-epoll/srcs/netty-transport-native-epoll-4.1.34.Final-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

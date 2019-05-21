@@ -1,15 +1,10 @@
 Silhouette Slick Seed Template
 =====================================
 
-The Silhouette Slick Seed project is an Activator template which shows how [Silhouette](https://github.com/mohiva/play-silhouette) can be implemented together with [Slick](http://slick.lightbend.com/) as persistence layer in a Play Framework application. It's a starting point which can be extended to fit your needs.
-
-## Example
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-(The "Build App" phase will take a few minutes)
-
-Or you can find a running example of this template under the following URL: https://play-silhouette-seed.herokuapp.com/
+The Silhouette Slick Seed project is a template which shows how 
+[Silhouette](https://github.com/mohiva/play-silhouette) can be implemented together with 
+[Slick](http://slick.lightbend.com/) as persistence layer in a Play Framework application. 
+It's a starting point which can be extended to fit your needs.
 
 ## Features
 
@@ -27,11 +22,10 @@ Or you can find a running example of this template under the following URL: http
 
 ## Documentation
 
-Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with the integration of Silhouette into your project, don't hesitate and ask questions in our [mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on [Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
-
-## Activator
-
-See https://typesafe.com/activator/template/play-silhouette-seed
+Consult the [Silhouette documentation](http://silhouette.mohiva.com/docs) for more information. If you need help with 
+the integration of Silhouette into your project, don't hesitate and ask questions in the 
+[mailing list](https://groups.google.com/forum/#!forum/play-silhouette) or on 
+[Stack Overflow](http://stackoverflow.com/questions/tagged/playframework).
 
 # License
 

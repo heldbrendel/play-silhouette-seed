@@ -13,7 +13,7 @@
         <entry key="play-silhouette-slick-seed">
           <value>
             <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.7.0.jar" />
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.7.2.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>
@@ -21,14 +21,14 @@
           <value>
             <ProjectSettingsEntry>
               <option name="sourceDir" value="D:\Workspace\play-silhouette-slick-seed\app" />
-              <option name="confDir" value="D:\Workspace\play-silhouette-slick-seed\app" />
+              <option name="confDir" value="D:\workspace\play-silhouette-slick-seed\app" />
               <option name="routesImports">
                 <list>
                   <option value="controllers.Assets.Asset" />
                   <option value="utils.route.Binders._" />
                 </list>
               </option>
-              <option name="uri" value="/D:/Workspace/play-silhouette-slick-seed" />
+              <option name="uri" value="/D:/workspace/play-silhouette-slick-seed" />
             </ProjectSettingsEntry>
           </value>
         </entry>

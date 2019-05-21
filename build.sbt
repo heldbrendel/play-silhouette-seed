@@ -1,12 +1,10 @@
-import com.typesafe.sbt.SbtScalariform._
-
-import scalariform.formatter.preferences._
-
 name := "play-silhouette-slick-seed"
 
 version := "5.0.7"
 
 scalaVersion := "2.12.8"
+
+crossScalaVersions := Seq("2.12.8", "2.11.12")
 
 resolvers += Resolver.jcenterRepo
 
@@ -63,14 +61,3 @@ scalacOptions ++= Seq(
   // https://github.com/playframework/twirl/issues/105
   "-Xlint:-unused,_"
 )
-
-//********************************************************
-// Scalariform settings
-//********************************************************
-
-scalariformAutoformat := true
-
-ScalariformKeys.preferences := ScalariformKeys.preferences.value
-  .setPreference(FormatXml, false)
-  .setPreference(DoubleIndentConstructorArguments, false)
-  .setPreference(DanglingCloseParenthesis, Preserve)
