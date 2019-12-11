@@ -1,63 +1,45 @@
 name := "play-silhouette-slick-seed"
 
-version := "5.0.7"
+version := "6.1.1"
 
-scalaVersion := "2.12.8"
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-crossScalaVersions := Seq("2.12.8", "2.11.12")
+scalaVersion := "2.13.0"
 
 resolvers += Resolver.jcenterRepo
 
-resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies ++= Seq(
-  "com.mohiva" %% "play-silhouette"                 % "5.0.7",
-  "com.mohiva" %% "play-silhouette-password-bcrypt" % "5.0.7",
-  "com.mohiva" %% "play-silhouette-persistence"     % "5.0.7",
-  "com.mohiva" %% "play-silhouette-crypto-jca"      % "5.0.7",
+  "com.mohiva" %% "play-silhouette"                 % "6.1.1",
+  "com.mohiva" %% "play-silhouette-password-bcrypt" % "6.1.1",
+  "com.mohiva" %% "play-silhouette-persistence"     % "6.1.1",
+  "com.mohiva" %% "play-silhouette-crypto-jca"      % "6.1.1",
 
-  "com.typesafe.play" %% "play-slick"             % "4.0.0",
-  "com.typesafe.play" %% "play-slick-evolutions"  % "4.0.0",
+  "com.typesafe.play" %% "play-slick"             % "4.0.2",
+  "com.typesafe.play" %% "play-slick-evolutions"  % "4.0.2",
 
-  "net.codingwell" %% "scala-guice" % "4.1.0",
+  "net.codingwell" %% "scala-guice" % "4.2.6",
 
-  "com.iheart" %% "ficus" % "1.4.3",
+  "com.iheart" %% "ficus" % "1.4.7",
 
-  "com.typesafe.play" %% "play-mailer"        % "6.0.1",
-  "com.typesafe.play" %% "play-mailer-guice"  % "6.0.1",
+  "com.typesafe.play" %% "play-mailer"        % "7.0.1",
+  "com.typesafe.play" %% "play-mailer-guice"  % "7.0.1",
 
-  "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.1-akka-2.5.x",
+  "com.enragedginger" %% "akka-quartz-scheduler" % "1.8.2-akka-2.6.x",
 
-  "com.mohiva" %% "play-silhouette-testkit" % "5.0.5" % "test",
+  "com.mohiva" %% "play-silhouette-testkit" % "6.1.1" % "test",
 
-  "com.h2database" % "h2" % "1.4.198",
+  "com.h2database" % "h2" % "1.4.200",
 
   specs2 % Test,
-  ehcache,
+  caffeine,
   guice,
   filters
 )
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
-routesImport += "utils.route.Binders._"
-
-// https://github.com/playframework/twirl/issues/105
-TwirlKeys.templateImports := Seq()
-
 scalacOptions ++= Seq(
-  "-deprecation", // Emit warning and location for usages of deprecated APIs.
-  "-feature", // Emit warning and location for usages of features that should be imported explicitly.
-  "-unchecked", // Enable additional warnings where generated code depends on assumptions.
-  "-Xfatal-warnings", // Fail the compilation if there are any warnings.
-  //"-Xlint", // Enable recommended additional warnings.
-  "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver.
-  "-Ywarn-dead-code", // Warn when dead code is identified.
-  "-Ywarn-inaccessible", // Warn about inaccessible types in method signatures.
-  "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
-  "-Ywarn-numeric-widen", // Warn when numerics are widened.
-  // Play has a lot of issues with unused imports and unsued params
-  // https://github.com/playframework/playframework/issues/6690
-  // https://github.com/playframework/twirl/issues/105
-  "-Xlint:-unused,_"
+  "-feature",
+  "-deprecation",
+  "-Xfatal-warnings"
 )

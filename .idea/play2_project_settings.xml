@@ -13,19 +13,35 @@
         <entry key="play-silhouette-slick-seed">
           <value>
             <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.7.2.jar" />
+              <option name="playDistrPath" value="$USER_HOME$/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.0-M6/play_2.13-2.8.0-M6.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="sourceDir" value="D:\Workspace\play-silhouette-slick-seed\app" />
+              <option name="sourceDir" value="D:\workspace\play-silhouette-slick-seed\app" />
               <option name="confDir" value="D:\workspace\play-silhouette-slick-seed\app" />
+              <option name="templateImports">
+                <list>
+                  <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
+                  <option value="_root_.play.twirl.api.TwirlHelperImports._" />
+                  <option value="_root_.play.twirl.api.Html" />
+                  <option value="_root_.play.twirl.api.JavaScript" />
+                  <option value="_root_.play.twirl.api.Txt" />
+                  <option value="_root_.play.twirl.api.Xml" />
+                  <option value="models._" />
+                  <option value="controllers._" />
+                  <option value="play.api.i18n._" />
+                  <option value="views.xml._" />
+                  <option value="play.api.templates.PlayMagic._" />
+                  <option value="play.api.mvc._" />
+                  <option value="play.api.data._" />
+                </list>
+              </option>
               <option name="routesImports">
                 <list>
                   <option value="controllers.Assets.Asset" />
-                  <option value="utils.route.Binders._" />
                 </list>
               </option>
               <option name="uri" value="/D:/workspace/play-silhouette-slick-seed" />

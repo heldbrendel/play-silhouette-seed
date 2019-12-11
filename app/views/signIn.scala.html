@@ -10,7 +10,7 @@
 
     <div class="column is-half is-offset-one-quarter">
         <h1>@messages("sign.in.credentials")</h1>
-        @helper.form(action = controllers.routes.SignInController.submit, 'autocomplete -> "off") {
+        @helper.form(action = controllers.routes.SignInController.submit, Symbol("autocomplete") -> "off") {
             @helper.CSRF.formField
 
             <div class="field">

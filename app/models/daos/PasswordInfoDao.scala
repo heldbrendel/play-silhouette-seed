@@ -6,9 +6,11 @@ import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
 import javax.inject.Inject
 import play.api.db.slick.DatabaseConfigProvider
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
+import scala.reflect.ClassTag
 
-class PasswordInfoDao @Inject() (protected val dbConfigProvider: DatabaseConfigProvider)(implicit ec: ExecutionContext)
+class PasswordInfoDao @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
+                               (implicit ec: ExecutionContext, val classTag: ClassTag[PasswordInfo])
   extends DelegableAuthInfoDAO[PasswordInfo] with DaoSlick {
 
   import profile.api._
