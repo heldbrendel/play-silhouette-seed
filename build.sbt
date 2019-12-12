@@ -1,8 +1,7 @@
 name := "play-silhouette-slick-seed"
 
-version := "6.1.1"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+version := "6.1.1"
 
 scalaVersion := "2.13.0"
 
@@ -37,6 +36,8 @@ libraryDependencies ++= Seq(
   guice,
   filters
 )
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalacOptions ++= Seq(
   "-feature",
