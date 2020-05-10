@@ -1,96 +1,45 @@
 package controllers
 
-import java.util.UUID
-
-import com.google.inject.AbstractModule
-import com.mohiva.play.silhouette.api.{ Environment, LoginInfo }
-import com.mohiva.play.silhouette.test._
-import models.User
-import net.codingwell.scalaguice.ScalaModule
-import org.specs2.mock.Mockito
-import org.specs2.specification.Scope
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.CSRFTokenHelper._
-import play.api.test.{ FakeRequest, PlaySpecification, WithApplication }
-import utils.auth.DefaultEnv
-
-import scala.concurrent.ExecutionContext.Implicits.global
+import org.scalatestplus.play._
+import org.scalatestplus.play.guice._
+import play.api.test._
+import play.api.test.Helpers._
 
 /**
- * Test case for the [[controllers.ApplicationController]] class.
+ * Add your spec here.
+ * You can mock out a whole application including requests, plugins etc.
+ *
+ * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
  */
-class ApplicationControllerSpec extends PlaySpecification with Mockito {
-  sequential
+class ApplicationControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
-  "The `index` action" should {
-    "redirect to login page if user is unauthorized" in new Context {
-      new WithApplication(application) {
-        val Some(redirectResult) = route(app, FakeRequest(routes.ApplicationController.index())
-          .withAuthenticator[DefaultEnv](LoginInfo("invalid", "invalid"))
-        )
+  "HomeController GET" should {
 
-        status(redirectResult) must be equalTo SEE_OTHER
+    "render the index page from a new instance of controller" in {
+      val controller = new ApplicationController(stubControllerComponents())
+      val home = controller.index().apply(FakeRequest(GET, "/"))
 
-        val redirectURL = redirectLocation(redirectResult).getOrElse("")
-        redirectURL must contain(routes.SignInController.view().toString)
-
-        val Some(unauthorizedResult) = route(app, addCSRFToken(FakeRequest(GET, redirectURL)))
-
-        status(unauthorizedResult) must be equalTo OK
-        contentType(unauthorizedResult) must beSome("text/html")
-        contentAsString(unauthorizedResult) must contain("Silhouette - Sign In")
-      }
+      status(home) mustBe OK
+      contentType(home) mustBe Some("text/html")
+      contentAsString(home) must include ("Welcome to Play")
     }
 
-    "return 200 if user is authorized" in new Context {
-      new WithApplication(application) {
-        val Some(result) = route(app, addCSRFToken(FakeRequest(routes.ApplicationController.index())
-          .withAuthenticator[DefaultEnv](identity.loginInfo))
-        )
+    "render the index page from the application" in {
+      val controller = inject[ApplicationController]
+      val home = controller.index().apply(FakeRequest(GET, "/"))
 
-        status(result) must beEqualTo(OK)
-      }
-    }
-  }
-
-  /**
-   * The context.
-   */
-  trait Context extends Scope {
-
-    /**
-     * A fake Guice module.
-     */
-    class FakeModule extends AbstractModule with ScalaModule {
-      def configure() = {
-        bind[Environment[DefaultEnv]].toInstance(env)
-      }
+      status(home) mustBe OK
+      contentType(home) mustBe Some("text/html")
+      contentAsString(home) must include ("Welcome to Play")
     }
 
-    /**
-     * An identity.
-     */
-    val identity = User(
-      userID = UUID.randomUUID(),
-      loginInfo = LoginInfo("facebook", "user@facebook.com"),
-      firstName = None,
-      lastName = None,
-      fullName = None,
-      email = None,
-      avatarURL = None,
-      activated = true
-    )
+    "render the index page from the router" in {
+      val request = FakeRequest(GET, "/")
+      val home = route(app, request).get
 
-    /**
-     * A Silhouette fake environment.
-     */
-    implicit val env: Environment[DefaultEnv] = new FakeEnvironment[DefaultEnv](Seq(identity.loginInfo -> identity))
-
-    /**
-     * The application.
-     */
-    lazy val application = new GuiceApplicationBuilder()
-      .overrides(new FakeModule)
-      .build()
+      status(home) mustBe OK
+      contentType(home) mustBe Some("text/html")
+      contentAsString(home) must include ("Welcome to Play")
+    }
   }
 }

@@ -1,78 +1,45 @@
 package controllers
 
 import java.util.UUID
-import javax.inject.Inject
 
-import com.mohiva.play.silhouette.api._
-import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
-import com.mohiva.play.silhouette.api.util.{ PasswordHasherRegistry, PasswordInfo }
+import com.mohiva.play.silhouette.api.LoginInfo
+import com.mohiva.play.silhouette.api.util.PasswordInfo
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import forms.ResetPasswordForm
-import models.services.{ AuthTokenService, UserService }
-import play.api.i18n.{ I18nSupport, Messages }
-import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents, Request }
-import utils.auth.DefaultEnv
+import javax.inject.Inject
+import play.api.mvc.{AnyContent, Request}
+import utils.route.Calls
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
-/**
- * The `Reset Password` controller.
- *
- * @param components             The Play controller components.
- * @param silhouette             The Silhouette stack.
- * @param userService            The user service implementation.
- * @param authInfoRepository     The auth info repository.
- * @param passwordHasherRegistry The password hasher registry.
- * @param authTokenService       The auth token service implementation.
- * @param assets                 The Play assets finder.
- * @param ex                     The execution context.
- */
-class ResetPasswordController @Inject() (
-  components: ControllerComponents,
-  silhouette: Silhouette[DefaultEnv],
-  userService: UserService,
-  authInfoRepository: AuthInfoRepository,
-  passwordHasherRegistry: PasswordHasherRegistry,
-  authTokenService: AuthTokenService
-)(implicit
-  assets: AssetsFinder,
-  ex: ExecutionContext
-) extends AbstractController(components) with I18nSupport {
+class ResetPasswordController @Inject()(
+                                         scc: SilhouetteControllerComponents
+                                       )(implicit ex: ExecutionContext) extends SilhouetteController(scc) {
 
-  /**
-   * Views the `Reset Password` page.
-   *
-   * @param token The token to identify a user.
-   * @return The result to display.
-   */
-  def view(token: UUID) = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
-    authTokenService.validate(token).map {
-      case Some(_) => Ok(views.html.resetPassword(ResetPasswordForm.form, token))
-      case None => Redirect(routes.SignInController.view()).flashing("error" -> Messages("invalid.reset.link"))
+  def view(authTokenId: UUID) = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
+    authTokenService.validate(authTokenId).map {
+      case Some(_) => Ok(views.html.resetPassword(ResetPasswordForm.form, authTokenId))
+      case None => Redirect(Calls.signIn).flashing("error" -> "Invalid reset link")
     }
   }
 
-  /**
-   * Resets the password.
-   *
-   * @param token The token to identify a user.
-   * @return The result to display.
-   */
-  def submit(token: UUID) = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
-    authTokenService.validate(token).flatMap {
+  def submit(authTokenId: UUID) = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
+    authTokenService.validate(authTokenId).flatMap {
       case Some(authToken) =>
         ResetPasswordForm.form.bindFromRequest.fold(
-          form => Future.successful(BadRequest(views.html.resetPassword(form, token))),
-          password => userService.retrieve(authToken.userID).flatMap {
-            case Some(user) if user.loginInfo.providerID == CredentialsProvider.ID =>
-              val passwordInfo = passwordHasherRegistry.current.hash(password)
-              authInfoRepository.update[PasswordInfo](user.loginInfo, passwordInfo).map { _ =>
-                Redirect(routes.SignInController.view()).flashing("success" -> Messages("password.reset"))
+          form => Future.successful(BadRequest(views.html.resetPassword(form, authTokenId))),
+          data => userService.retrieve(authToken.userId).flatMap {
+            case Some(user) =>
+              val passwordInfo = passwordHasherRegistry.current.hash(data.password)
+              val loginInfo = LoginInfo(CredentialsProvider.ID, user.userName)
+              authInfoRepository.update[PasswordInfo](loginInfo, passwordInfo).map { _ =>
+                Redirect(Calls.signIn).flashing("success" -> "Password reset")
               }
-            case _ => Future.successful(Redirect(routes.SignInController.view()).flashing("error" -> Messages("invalid.reset.link")))
+            case _ => Future.successful(Redirect(Calls.signIn).flashing("error" -> "Invalid reset link"))
           }
         )
-      case None => Future.successful(Redirect(routes.SignInController.view()).flashing("error" -> Messages("invalid.reset.link")))
+
+      case None => Future.successful(Redirect(Calls.signIn).flashing("error" -> "Invalid reset link"))
     }
   }
 }

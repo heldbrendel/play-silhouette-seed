@@ -1,50 +1,34 @@
--- Play schema
+# --- !Ups
 
--- !Ups
-
-create table USER
+create table users
 (
-  userID    uuid    NOT NULL PRIMARY KEY,
-  firstName varchar(255),
-  lastName  varchar(255),
-  fullName  varchar(255),
-  email     varchar(255),
-  avatarURL varchar(255),
-  activated boolean NOT NULL
+    user_id    serial,
+    username   text not null,
+    email      text not null,
+    first_name text,
+    last_name  text,
+    activated  bool,
+    created    timestamp,
+    modified   timestamp
 );
 
-create table LOGININFO
+create table auth_token
 (
-  id          bigint(20)   NOT NULL AUTO_INCREMENT,
-  providerID  varchar(255) NOT NULL,
-  providerKey varchar(255) NOT NULL
+    auth_token_id uuid not null,
+    user_id       int  not null,
+    expiry        timestamp
 );
 
-create table USERLOGININFO
+create table password_info
 (
-  userID      uuid       NOT NULL,
-  loginInfoId bigint(20) NOT NULL
+    user_name text not null,
+    hasher    text not null,
+    password  text not null,
+    salt      text
 );
 
-create table PASSWORDINFO
-(
-  hasher      varchar(255) NOT NULL,
-  password    varchar(255) NOT NULL,
-  salt        varchar(255),
-  loginInfoId bigint(20)   NOT NULL
-);
+# --- !Downs
 
-create table AUTHTOKEN
-(
-  id     uuid      NOT NULL PRIMARY KEY,
-  userID uuid      NOT NULL,
-  expiry timestamp NOT NULL
-);
-
--- !Downs
-
-drop table AUTHTOKEN;
-drop table PASSWORDINFO;
-drop table USERLOGININFO;
-drop table LOGININFO;
-drop table USER;
+drop table if exists password_info;
+drop table if exists auth_token;
+drop table if exists users;

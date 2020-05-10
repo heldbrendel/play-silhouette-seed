@@ -1,46 +1,30 @@
 package controllers
 
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
-import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
-import javax.inject.Inject
-import play.api.i18n.I18nSupport
-import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents }
-import utils.auth.DefaultEnv
+import com.mohiva.play.silhouette.api.services.AuthenticatorService
+import com.mohiva.play.silhouette.api.{EventBus, LogoutEvent, Silhouette}
+import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
+import javax.inject._
+import models.User
+import play.api.mvc._
+import utils.auth.CookieEnv
 
-import scala.concurrent.Future
+@Singleton
+class ApplicationController @Inject()(
+                                       val controllerComponents: ControllerComponents,
+                                       silhouette: Silhouette[CookieEnv],
+                                       eventBus: EventBus,
+                                       authenticatorService: AuthenticatorService[CookieAuthenticator]
+                                     ) extends BaseController {
 
-/**
- * The basic application controller.
- *
- * @param components  The Play controller components.
- * @param silhouette  The Silhouette stack.
- * @param assets      The Play assets finder.
- */
-class ApplicationController @Inject() (
-  components: ControllerComponents,
-  silhouette: Silhouette[DefaultEnv]
-)(
-  implicit
-  assets: AssetsFinder
-) extends AbstractController(components) with I18nSupport {
-
-  /**
-   * Handles the index action.
-   *
-   * @return The result to display.
-   */
-  def index = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
-    Future.successful(Ok(views.html.home(request.identity)))
+  def index = silhouette.SecuredAction { implicit request: SecuredRequest[CookieEnv, AnyContent] =>
+    val user: User = request.identity
+    Ok(views.html.index(user))
   }
 
-  /**
-   * Handles the Sign Out action.
-   *
-   * @return The result to display.
-   */
-  def signOut = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
-    val result = Redirect(routes.ApplicationController.index())
-    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
-    silhouette.env.authenticatorService.discard(request.authenticator, result)
+  def signOut = silhouette.SecuredAction.async { implicit request: SecuredRequest[CookieEnv, AnyContent] =>
+    val result = Ok(views.html.signOut())
+    eventBus.publish(LogoutEvent(request.identity, request))
+    authenticatorService.discard(request.authenticator, result)
   }
 }

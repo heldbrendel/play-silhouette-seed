@@ -1,95 +1,64 @@
 package controllers
 
-import javax.inject.Inject
-
-import com.mohiva.play.silhouette.api.Authenticator.Implicits._
-import com.mohiva.play.silhouette.api._
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.util.{ Clock, Credentials }
+import com.mohiva.play.silhouette.api.services.AuthenticatorResult
+import com.mohiva.play.silhouette.api.util.Credentials
+import com.mohiva.play.silhouette.api.{LoginEvent, LoginInfo}
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
-import com.mohiva.play.silhouette.impl.providers._
+import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import forms.SignInForm
-import models.services.UserService
-import net.ceedubs.ficus.Ficus._
-import play.api.Configuration
-import play.api.i18n.{ I18nSupport, Messages }
-import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents, Request }
-import utils.auth.DefaultEnv
+import javax.inject.Inject
+import models.User
+import play.api.mvc.{AnyContent, Request, RequestHeader}
+import utils.route.Calls
 
-import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
-/**
- * The `Sign In` controller.
- *
- * @param components             The Play controller components.
- * @param silhouette             The Silhouette stack.
- * @param userService            The user service implementation.
- * @param credentialsProvider    The credentials provider.
- * @param configuration          The Play configuration.
- * @param clock                  The clock instance.
- * @param assets                 The Play assets finder.
- */
-class SignInController @Inject() (
-  components: ControllerComponents,
-  silhouette: Silhouette[DefaultEnv],
-  userService: UserService,
-  credentialsProvider: CredentialsProvider,
-  configuration: Configuration,
-  clock: Clock
-)(
-  implicit
-  assets: AssetsFinder,
-  ex: ExecutionContext
-) extends AbstractController(components) with I18nSupport {
+class SignInController @Inject()(
+                                  scc: SilhouetteControllerComponents
+                                )(implicit ec: ExecutionContext) extends SilhouetteController(scc) {
 
-  /**
-   * Views the `Sign In` page.
-   *
-   * @return The result to display.
-   */
-  def view = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
-    Future.successful(Ok(views.html.signIn(SignInForm.form)))
+  def view = silhouette.UnsecuredAction { implicit request =>
+    Ok(views.html.signIn(SignInForm.form))
   }
 
-  /**
-   * Handles the submitted form.
-   *
-   * @return The result to display.
-   */
   def submit = silhouette.UnsecuredAction.async { implicit request: Request[AnyContent] =>
     SignInForm.form.bindFromRequest.fold(
       form => Future.successful(BadRequest(views.html.signIn(form))),
       data => {
-        val credentials = Credentials(data.email, data.password)
+        val credentials = Credentials(data.userName, data.password)
         credentialsProvider.authenticate(credentials).flatMap { loginInfo =>
-          val result = Redirect(routes.ApplicationController.index())
           userService.retrieve(loginInfo).flatMap {
-            case Some(user) if !user.activated =>
-              Future.successful(Ok(views.html.activateAccount(data.email)))
-            case Some(user) =>
-              val c = configuration.underlying
-              silhouette.env.authenticatorService.create(loginInfo).map {
-                case authenticator if data.rememberMe =>
-                  authenticator.copy(
-                    expirationDateTime = clock.now + c.as[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorExpiry"),
-                    idleTimeout = c.getAs[FiniteDuration]("silhouette.authenticator.rememberMe.authenticatorIdleTimeout"),
-                    cookieMaxAge = c.getAs[FiniteDuration]("silhouette.authenticator.rememberMe.cookieMaxAge")
-                  )
-                case authenticator => authenticator
-              }.flatMap { authenticator =>
-                silhouette.env.eventBus.publish(LoginEvent(user, request))
-                silhouette.env.authenticatorService.init(authenticator).flatMap { v =>
-                  silhouette.env.authenticatorService.embed(v, result)
-                }
-              }
-            case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
+            case Some(user) => authenticateUser(user, data.rememberMe)
+            case None => Future.failed(new IdentityNotFoundException("Could not find user"))
           }
-        }.recover {
-          case _: ProviderException =>
-            Redirect(routes.SignInController.view()).flashing("error" -> Messages("invalid.credentials"))
         }
+      }.recover {
+        case _: ProviderException =>
+          Redirect(Calls.signIn).flashing("error" -> "Invalid credentials")
       }
     )
+  }
+
+  protected def authenticateUser(user: User, rememberMe: Boolean)(implicit request: RequestHeader): Future[AuthenticatorResult] = {
+    val result = Redirect(Calls.home)
+
+    val loginInfo = LoginInfo(CredentialsProvider.ID, user.userName)
+    authenticatorService.create(loginInfo).map {
+      case authenticator if rememberMe =>
+
+        val t = clock
+        authenticator.copy(
+          expirationDateTime = clock.now.plus(scc.rememberMeConfig.expiry.toMillis),
+          idleTimeout = scc.rememberMeConfig.idleTimeout,
+          cookieMaxAge = scc.rememberMeConfig.cookieMaxAge)
+
+      case authenticator => authenticator
+    }.flatMap { authenticator =>
+      eventBus.publish(LoginEvent(user, request))
+      authenticatorService.init(authenticator).flatMap { v =>
+        authenticatorService.embed(v, result)
+      }
+    }
   }
 }

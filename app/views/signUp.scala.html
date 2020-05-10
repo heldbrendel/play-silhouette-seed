@@ -1,55 +1,69 @@
 @import play.api.data.Form
-@import play.api.i18n.Messages
-@import play.api.mvc.RequestHeader
-@import controllers.AssetsFinder
 @import forms.SignUpForm.Data
 
-@(signUpForm: Form[Data])(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder)
+@(signUpForm: Form[Data])(implicit requestHeader: RequestHeader, flash: Flash)
 
-@main(messages("sign.up.title")) {
+@main("Sign up") {
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
 
-    <div class="column is-half is-offset-one-quarter">
-        <h1>@messages("sign.up.account")</h1>
-        @helper.form(action = controllers.routes.SignUpController.submit, Symbol("autocomplete") -> "off") {
-            @helper.CSRF.formField
+                        <form action="@routes.SignUpController.submit()" method="post" class="box">
+                            @helper.CSRF.formField
 
-            <div class="field">
-                <label class="label">@messages("first.name")</label>
-                <div class="control">
-                    <input class="input" type="text" name="firstName" id="firstName" placeholder="@messages("first.name")">
+                            <h1 class="title has-text-centered">Sign up</h1>
+
+                            @if(flash.get("info").isDefined) {
+                                <div class="notification is-primary">
+                                @flash.get("info").get
+                                </div>
+                            }
+                            @if(flash.get("success").isDefined) {
+                                <div class="notification is-success">
+                                @flash.get("success").get
+                                </div>
+                            }
+                            @if(flash.get("error").isDefined) {
+                                <div class="notification is-danger">
+                                @flash.get("error").get
+                                </div>
+                            }
+
+                            <div class="field">
+                                <label class="label" for="username">Username</label>
+                                <div class="control">
+                                    <input class="input" type="text" id="username" name="username">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="email">Email</label>
+                                <div class="control">
+                                    <input class="input" type="email" id="email" name="email">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="password">Password</label>
+                                <div class="control">
+                                    <input class="input" type="password" id="password" name="password">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <button class="button is-success">Sign up</button>
+                            </div>
+
+                            <div class="has-text-centered">
+                                <a href="@routes.SignInController.view()">Sign in</a>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <div class="field">
-                <label class="label">@messages("last.name")</label>
-                <div class="control">
-                    <input class="input" type="text" name="lastName" id="lastName" placeholder="@messages("last.name")">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">@messages("email")</label>
-                <div class="control">
-                    <input class="input" type="email" name="email" id="email" placeholder="@messages("email")">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">@messages("password")</label>
-                <div class="control">
-                    <input class="input" type="password" name="password" id="password" placeholder="@messages("password")">
-                </div>
-            </div>
-
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link">@messages("sign.up")</button>
-                </div>
-            </div>
-        }
-
-        <div class="sign-in-now">
-            <p>@messages("already.a.member") <a href="@controllers.routes.SignInController.view">@messages("sign.in.now")</a></p>
         </div>
-    </div>
+    </section>
 }

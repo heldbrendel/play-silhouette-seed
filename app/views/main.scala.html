@@ -1,104 +1,19 @@
-@import controllers.AssetsFinder
-@import play.api.i18n.Messages
-@import play.api.mvc.RequestHeader
-@import play.twirl.api.Html
-
-@(title: String, user: Option[models.User] = None)(content: Html)(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder)
+@(title: String)(content: Html)
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/png" href="@assets.path("images/favicon.png")">
         <title>@title</title>
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/bulma/css/bulma.css")">
+        <script defer src="@routes.Assets.versioned("lib/font-awesome/js/all.js")"></script>
 
-        <link href="@assets.path("styles/bulma.min.css")" rel="stylesheet">
-        <link href="@assets.path("styles/main.css")" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     </head>
     <body>
+    @content
 
-        <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="@controllers.routes.ApplicationController.index">
-                    Silhouette Slick Seed Template
-                </a>
-
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="@controllers.routes.ApplicationController.index">
-                    @messages("home")
-                    </a>
-                    <a class="navbar-item" href="https://github.com/heldbrendel/play-silhouette-slick-seed">
-                        Github
-                    </a>
-                </div>
-
-                <div class="navbar-end">
-                @if(user.isDefined) {
-                    <a class="navbar-item" href="@controllers.routes.ApplicationController.index">@user.get.name</a>
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            @if(user.get.loginInfo.providerID == com.mohiva.play.silhouette.impl.providers.CredentialsProvider.ID) {
-                                <a class="button is-primary" href="@controllers.routes.ChangePasswordController.view">
-                                @messages("change.password")
-                                </a>
-                            }
-                            <a class="button is-primary" href="@controllers.routes.ApplicationController.signOut">
-                            @messages("sign.out")
-                            </a>
-                        </div>
-                    </div>
-
-                } else {
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary" href="@controllers.routes.SignUpController.view">
-                            @messages("sign.up")
-                            </a>
-                            <a class="button is-light" href="@controllers.routes.SignInController.view">
-                            @messages("sign.in")
-                            </a>
-                        </div>
-                    </div>
-                }
-                </div>
-            </div>
-        </nav>
-
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    @request.flash.get("error").map { msg =>
-                        <div class="notification is-danger">
-                            <button class="delete"></button>
-                            @messages("error") @msg
-                        </div>
-                    }
-
-                    @request.flash.get("info").map { msg =>
-                        <div class="notification is-info">
-                            <button class="delete"></button>
-                            @messages("info") @msg
-                        </div>
-                    }
-
-                    @request.flash.get("success").map { msg =>
-                        <div class="notification is-success">
-                            <button class="delete"></button>
-                            @messages("success") @msg
-                        </div>
-                    }
-                    @content
-                </div>
-            </div>
-        </div>
+    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
     </body>
 </html>
