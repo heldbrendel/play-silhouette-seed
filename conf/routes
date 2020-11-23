@@ -1,26 +1,19 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET         /                               controllers.ApplicationController.index
-GET         /signOut                        controllers.ApplicationController.signOut
+GET         /                   controllers.Application.index
+GET         /profile            controllers.Application.profile
 
-GET         /signIn                         controllers.SignInController.view
-POST        /signIn                         controllers.SignInController.submit
+GET         /lang/:lang         controllers.Application.setLanguage(lang: String, previous: Option[String])
 
-GET         /signUp                         controllers.SignUpController.view
-POST        /signUp                         controllers.SignUpController.submit
-
-GET         /account/email/:email           controllers.ActivateAccountController.send(email: String)
-GET         /account/activate/:token        controllers.ActivateAccountController.activate(token: java.util.UUID)
-
-GET         /password/forgot                controllers.ForgotPasswordController.view
-POST        /password/forgot                controllers.ForgotPasswordController.submit
-GET         /password/reset/:token           controllers.ResetPasswordController.view(token: java.util.UUID)
-POST        /password/reset/:token           controllers.ResetPasswordController.submit(token: java.util.UUID)
-GET         /password/change                 controllers.ChangePasswordController.view
-POST        /password/change                 controllers.ChangePasswordController.submit
+GET         /register           controllers.SilhouetteController.showRegister
+POST        /register           controllers.SilhouetteController.register
+GET         /login              controllers.SilhouetteController.showLogin
+POST        /login              controllers.SilhouetteController.login
+GET         /logout             controllers.SilhouetteController.logout
+GET         /changePassword     controllers.SilhouetteController.showChangePassword
+POST        /changePassword     controllers.SilhouetteController.changePassword
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                   controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file       controllers.Assets.versioned(file)

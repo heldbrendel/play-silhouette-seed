@@ -1,0 +1,12 @@
+@(message: String, header: Option[String] = None, level: String = "primary")
+
+<article class="message is-@level">
+    @if(header.isDefined) {
+        <div class="message-header">
+            <p>@header.get</p>
+        </div>
+    }
+    <div class="message-body">
+    @message
+    </div>
+</article>

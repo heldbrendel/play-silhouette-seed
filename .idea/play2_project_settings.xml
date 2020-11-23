@@ -3,18 +3,32 @@
   <component name="Play2ExcludedModulesSettings">
     <option name="INFO">
       <map>
-        <entry key="play-scala-slick-starter">
+        <entry key="play-scala-starter-example">
           <value>
             <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$USER_HOME$/AppData/Local/Coursier/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.1/play_2.13-2.8.1.jar" />
+              <option name="playDistrPath" value="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.5/play_2.13-2.8.5.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="play-silhouette-slick-seed">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.5/play_2.13-2.8.5.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="play-silhouette-starter">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.5/play_2.13-2.8.5.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="sourceDir" value="D:\workspace\play-scala-slick-starter\app" />
-              <option name="confDir" value="D:\workspace\play-scala-slick-starter\app" />
+              <option name="sourceDir" value="$PROJECT_DIR$/app" />
+              <option name="confDir" value="$PROJECT_DIR$/app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -37,7 +51,7 @@
                   <option value="controllers.Assets.Asset" />
                 </list>
               </option>
-              <option name="uri" value="/D:/workspace/play-scala-slick-starter" />
+              <option name="uri" value="$PROJECT_DIR$" />
             </ProjectSettingsEntry>
           </value>
         </entry>

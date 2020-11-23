@@ -1,0 +1,30 @@
+password=Passwort
+cancel=Abbrechen
+
+language=Sprache
+logout=Abmelden
+
+warning.username-taken=Dieser Benutzername ist bereits vergeben.
+warning.passwords-not-equal=Die eingegebenen Passwörter stimmen nicht überein.
+warning.credentials-invalid=Die eingegebenen Anmeldedaten sind nicht korrekt.
+
+logout.success=Erfolgreich abgemeldet.
+
+login.title=Anmeldung
+login.submit=Anmelden
+login.success=Erfolgreich angemeldet.
+
+registration.title=Registrierung
+registration.success=Die Registrierung war erfolgreich.
+
+password.change.title=Passwort ändern
+password.change.submit=Passwort ändern
+password.change.old-password=Altes Passwort
+password.change.new-password=Neues Passwort
+password.change.confirm-new-password=Neues Password bestätigen
+password.change.success=Das Passwort wurde erfolgreich geändert.
+login.remember-me=Angemeldet bleiben
+username=Benutzername
+register.title=Registrierung
+register.confirm-password=Passwort bestätigen
+register.submit=Registrieren

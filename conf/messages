@@ -1,1 +1,30 @@
-# https://www.playframework.com/documentation/latest/ScalaI18N
+cancel=Cancel
+
+language=Language
+logout=Logout
+
+warning.username-taken=This username is already taken.
+warning.passwords-not-equal=The entered passwords are not equal.
+warning.credentials-invalid=The entered credentials are not valid.
+
+logout.success=You have successfully logged out.
+
+login.title=Login
+login.submit=Log in
+login.success=You have successfully logged in.
+
+registration.title=Register
+registration.success=The registration was successful.
+
+password.change.title=Change password
+password.change.submit=Change password
+password.change.old-password=Old password
+password.change.new-password=New password
+password.change.confirm-new-password=Confirm new password
+password.change.success=The password has successfully been changed.
+login.remember-me=Remember me
+username=Username
+password=Password
+register.title=Register
+register.confirm-password=Confirm password
+register.submit=Register

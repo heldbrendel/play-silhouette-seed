@@ -1,34 +1,22 @@
-# --- !Ups
+-- !Ups
 
-create table users
+CREATE TABLE users
 (
-    user_id    serial,
-    username   text not null,
-    email      text not null,
-    first_name text,
-    last_name  text,
-    activated  bool,
-    created    timestamp,
-    modified   timestamp
+    id       BIGSERIAL PRIMARY KEY,
+    username VARCHAR NOT NULL,
+    email    VARCHAR
 );
 
-create table auth_token
+CREATE TABLE password_infos
 (
-    auth_token_id uuid not null,
-    user_id       int  not null,
-    expiry        timestamp
+    username VARCHAR NOT NULL,
+    hasher   VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    salt     VARCHAR
+
 );
 
-create table password_info
-(
-    user_name text not null,
-    hasher    text not null,
-    password  text not null,
-    salt      text
-);
+-- !Downs
 
-# --- !Downs
-
-drop table if exists password_info;
-drop table if exists auth_token;
-drop table if exists users;
+DROP TABLE password_infos;
+DROP TABLE users;

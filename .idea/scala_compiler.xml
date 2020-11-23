@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="play-scala-slick-starter_4208" />
-    <profile name="sbt 2" modules="play-scala-slick-starter">
+    <profile name="sbt 1" modules="play-silhouette-starter_2869" />
+    <profile name="sbt 2" modules="play-scala-starter-example,play-silhouette-slick-seed,play-silhouette-starter">
       <option name="deprecationWarnings" value="true" />
       <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
       <parameters>
         <parameter value="-encoding" />
         <parameter value="utf8" />
+        <parameter value="-Xfatal-warnings" />
       </parameters>
     </profile>
   </component>

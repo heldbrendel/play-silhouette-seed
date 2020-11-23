@@ -1,0 +1,53 @@
+@import silAuth.User
+@(userOpt: Option[User])(implicit request: RequestHeader, assetsFinder: AssetsFinder, messages: Messages)
+
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+                Home
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    @messages("language")
+                </a>
+
+                <div class="navbar-dropdown is-right">
+                    <a class="navbar-item" href="@routes.Application.setLanguage("en", Some(request.uri))">
+                            EN
+                    </a>
+                    <a class="navbar-item" href="@routes.Application.setLanguage("de", Some(request.uri))">
+                            DE
+                    </a>
+                </div>
+            </div>
+            @if(userOpt.isDefined) {
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                    @userOpt.get.username
+                    </a>
+
+                    <div class="navbar-dropdown is-right">
+                        <a class="navbar-item" href="@routes.SilhouetteController.showChangePassword()">
+                        @messages("password.change.title")
+                        </a>
+                        <a class="navbar-item" href="@routes.SilhouetteController.logout()">
+                            @messages("logout")
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</nav>

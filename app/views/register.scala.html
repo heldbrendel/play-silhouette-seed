@@ -1,0 +1,65 @@
+@import silAuth.RegisterForm
+@(registerForm: Form[RegisterForm.Data])(implicit request: RequestHeader, assetsFinder: AssetsFinder, messages: Messages)
+
+@main(messages("register.title")) {
+
+    <div class="columns">
+        <div class="column">
+
+        </div>
+        <div class="column">
+
+            <section class="section">
+
+                @if(registerForm.hasErrors) {
+                    @for(error <- registerForm.globalErrors) {
+                        @bulma.message(error.message, level = "danger")
+                    }
+                }
+
+                <div class="container mb-5">
+                    <h1 class="is-size-4 has-text-centered">@messages("register.title")</h1>
+                </div>
+
+                <div class="container">
+                    @helper.form(action = routes.SilhouetteController.register()) {
+                        @helper.CSRF.formField
+                        <div class="field">
+                            <label class="label" for="username">@messages("username")</label>
+                            <div class="control">
+                                <input class="input" type="text" name="username" id="username">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="password">@messages("password")</label>
+                            <div class="control">
+                                <input class="input" type="password" name="password" id="password">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="confirm-password">@messages("register.confirm-password")</label>
+                            <div class="control">
+                                <input class="input" type="password" name="confirm-password" id="confirm-password">
+                            </div>
+                        </div>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link">@messages("register.submit")</button>
+                            </div>
+                        </div>
+                    }
+                    <div class="mt-3">
+                        <a href="@routes.SilhouetteController.showLogin()">@messages("login.title")</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <div class="column">
+
+        </div>
+    </div>
+}

@@ -1,0 +1,12 @@
+@(message: String = "")(implicit request: RequestHeader, assetsFinder: AssetsFinder, messages: Messages)
+
+    @main("Unauthorized") {
+        <section class="section">
+            <div class="container">
+                <h1 class="title">Unauthorized</h1>
+                <h2 class="subtitle">
+                @message
+                </h2>
+            </div>
+        </section>
+    }
